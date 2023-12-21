@@ -20,7 +20,6 @@ export default function Search() {
     const value = e.currentTarget.value.toLowerCase()
     setFilter(value)
     setMatchSelected(false)
-    console.log(value)
   }
 
   const selectMatch = (symbol: string) => {
@@ -29,7 +28,6 @@ export default function Search() {
   }
 
   const matchItem = (item: Match) => {
-    console.log('matchitem')
     return (
       <li
         className='overflow-clip hover:bg-gray-100 cursor-pointer'

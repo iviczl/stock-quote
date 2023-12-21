@@ -13,7 +13,6 @@ export default async (filter: string): Promise<Match[]> => {
       )
     ).json()
   )[MATCHES_KEY] as []
-  console.log('response', response)
   if (!response || response.length === 0) {
     return [] as Match[]
   }
