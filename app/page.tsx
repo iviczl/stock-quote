@@ -5,6 +5,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import type { AppProps } from 'next/app'
 import { Inter } from 'next/font/google'
 import Search from './components/Search/Search'
@@ -24,6 +25,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
          <Component {...pageProps} /> 
       </main> */}
       {/* </Hydrate> */}
+      <ReactQueryDevtools />
     </QueryClientProvider>
   )
 }

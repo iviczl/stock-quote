@@ -9,17 +9,16 @@ export default async (filter: string): Promise<Match[]> => {
     await (
       await fetch(
         `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${filter}&apikey=6MAC9AMIYQ93U1CJ`,
-        { cache: 'no-store' }
+        { cache: 'force-cache' } //runs on client, so browser cache
       )
     ).json()
   )[MATCHES_KEY] as []
-  // { next: { revalidate: CACHE_VALID }
-
-  if (!response || !response.hasOwnProperty(SYMBOL_KEY)) {
+  console.log('response', response)
+  if (!response || response.length === 0) {
     return [] as Match[]
   }
   return response.map((item) => ({
     symbol: item[SYMBOL_KEY],
     name: item[NAME_KEY],
-  }))
+  })) as Match[]
 }

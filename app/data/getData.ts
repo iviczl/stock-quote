@@ -13,18 +13,17 @@ const PREVIOUS_CLOSING_PRICE = '08. previous close'
 const PRICE_CHANGE_KEY = '09. change'
 const PRICE_CHANGE_PERCENT_KEY = '10. change percent'
 
-const CACHE_VALID = 86400 // because of the one day period of freshness
+const CACHE_VALID = 3600 // 1 hour (because of the one day period of freshness)
 
 export default async (symbol: string): Promise<Quote | null> => {
   const response = (
     await (
       await fetch(
         `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=demo`,
-        { cache: 'no-store' }
+        { next: { revalidate: CACHE_VALID } } // runs on server, so next.js cache
       )
     ).json()
   )[QUOTE_DATA_KEY]
-  // { next: { revalidate: CACHE_VALID }
 
   if (!response || !response.hasOwnProperty(SYMBOL_KEY)) {
     return null
